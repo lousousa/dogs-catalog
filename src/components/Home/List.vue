@@ -15,7 +15,7 @@
                 </v-text-field>
             </v-card-title>
 
-            <v-data-table style='min-height:35vh'
+            <v-data-table style='min-height:35.5vh'
                 :headers='dataTable.headers'
                 :items='dataTable.getItems()'
                 :page.sync="pagination.page"
@@ -33,13 +33,13 @@
                                 <v-icon class='mr-4' color="orange darken-2">
                                     {{ $parent.favoriteExists(item.param) ? 'mdi-star' : 'mdi-star-outline' }}
                                 </v-icon>
-                                <span>{{ item.breed }}</span>
+                                <span>{{ item.subBreed }}</span>
                             </td>
                         </tr>
                         <tr></tr>
                     </tbody>
                     <div v-else>
-                        <p class='text-center my-8'>No records found.</p>
+                        <p class='text-center my-8'>No data available</p>
                     </div>
                 </template>
 
@@ -62,10 +62,13 @@
             return {
                 search: '',
                 dataTable: {
-                    headers: [ { text: 'Breeds', value: 'breed' } ],
+                    headers: [ { text: 'Sub-Breeds', value: 'breed' } ],
                     items: [],
                     getItems () {
-                        return parent.viewFavorites ? this.items.filter(i => parent.favorites.includes(i.param)) : this.items
+                        let result = this.items
+                        if (parent.viewFavorites) result = result.filter(i => parent.favorites.includes(i.param))
+                        if (parent.filterByBreed) result = result.filter(i => i.breed === parent.filterByBreed)
+                        return result
                     }
                 },
                 pagination: {

@@ -3,7 +3,7 @@
         <List ref='list'/>
         <v-container class='mt-2'>
             <v-row align='center'>
-                <v-col cols='6'><SelectBreed/></v-col>
+                <v-col cols='6'><SelectBreed ref='selectBreed'/></v-col>
                 <v-col cols='3'></v-col>
                 <v-col cols='3'><ToggleFavorites/></v-col>
             </v-row>
@@ -35,7 +35,8 @@
             return {
                 list: null,
                 favorites: [],
-                viewFavorites: false
+                viewFavorites: false,
+                filterByBreed: null
             }
         },
         methods: {
@@ -52,20 +53,23 @@
                                 if (this.list[key].length) {
                                     this.list[key].forEach(subBreed => {
                                         this.$refs.list.dataTable.items.push({
-                                            breed: `${ subBreed[0].toUpperCase() }${ subBreed.substr(1) } ${ key[0].toUpperCase() }${ key.substr(1) }`,
+                                            subBreed: `${ subBreed[0].toUpperCase() }${ subBreed.substr(1) } ${ key[0].toUpperCase() }${ key.substr(1) }`,
+                                            breed: key,
                                             param: `${ key }/${ subBreed }`
                                         })
 
                                     })
                                 } else {
                                     this.$refs.list.dataTable.items.push({
-                                        breed: `${ key[0].toUpperCase() }${ key.substr(1) }`,
+                                        subBreed: `${ key[0].toUpperCase() }${ key.substr(1) }`,
+                                        breed: key,
                                         param: key
                                     })
                                 }
-                                this.$refs.list.dataTable.items.sort((a, b) => a.breed > b.breed ? 1 : -1)
+                                this.$refs.selectBreed.items.push({ text: `${ key[0].toUpperCase() }${ key.substr(1) }`, value: key })
 
                             })
+                            this.$refs.list.dataTable.items.sort((a, b) => a.breed > b.breed ? 1 : -1)
 
                         }
                     })

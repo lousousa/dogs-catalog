@@ -1,6 +1,6 @@
 <template>
-    <v-btn v-if='$parent.favorites.length'
-        color="primary"
+    <v-btn color="primary"
+        :disabled='! $parent.favorites.length'
         elevation="2"
         block
         @click='viewFavorites()'>
