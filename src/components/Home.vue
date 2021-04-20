@@ -18,7 +18,8 @@
         data () {
             return {
                 list: null,
-                favorites: []
+                favorites: [],
+                viewFavorites: false
             }
         },
         methods: {

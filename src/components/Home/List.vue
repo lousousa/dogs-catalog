@@ -17,7 +17,7 @@
 
             <v-data-table
                 :headers='dataTable.headers'
-                :items='dataTable.items'
+                :items='dataTable.getItems()'
                 :page.sync="pagination.page"
                 :items-per-page='pagination.itemsPerPage'
                 hide-default-footer
@@ -30,7 +30,9 @@
                     <tbody>
                         <tr v-for='item, key in items' :key='key'>
                             <td style='cursor:pointer' @click='favorite(item)'>
-                                <v-icon class='mr-4' color="orange darken-2">{{ $parent.favoriteExists(item.param) ? 'mdi-star' : 'mdi-star-outline' }}</v-icon>
+                                <v-icon class='mr-4' color="orange darken-2">
+                                    {{ $parent.favoriteExists(item.param) ? 'mdi-star' : 'mdi-star-outline' }}
+                                </v-icon>
                                 <span>{{ item.breed }}</span>
                             </td>
                         </tr>
@@ -58,11 +60,17 @@
             this.getList()
         },
         data () {
+
+            let parent = this.$parent
+
             return {
                 search: '',
                 dataTable: {
                     headers: [ { text: 'Breeds', value: 'breed' } ],
-                    items: []
+                    items: [],
+                    getItems () {
+                        return parent.viewFavorites ? this.items.filter(i => parent.favorites.includes(i.param)) : this.items
+                    }
                 },
                 pagination: {
                     page: 1,
