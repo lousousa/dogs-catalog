@@ -23,7 +23,20 @@
                 hide-default-footer
                 :search="search"
                 @page-count="pagination.count = $event"
-                class='elevation-1'>
+                class='elevation-1'
+                dense>
+
+                <template v-slot:body="{ items }">
+                    <tbody>
+                        <tr v-for='item, key in items' :key='key'>
+                            <td style='cursor:pointer' @click='favorite(item)'>
+                                <v-icon class='mr-4' color="orange darken-2">{{ $parent.favoriteExists(item.param) ? 'mdi-star' : 'mdi-star-outline' }}</v-icon>
+                                <span>{{ item.breed }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </template>
+
             </v-data-table>
 
             <v-pagination
@@ -88,6 +101,13 @@
 
                         }
                     })
+            },
+            favorite (item) {
+                if (this.$parent.favoriteExists(item.param)) {
+                    this.$parent.favorites = this.$parent.favorites.filter(p => p !== item.param)
+                } else {
+                    this.$parent.favorites.push(item.param)
+                }
             }
         }
     }

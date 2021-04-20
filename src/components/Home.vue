@@ -6,7 +6,7 @@
 </template>
 
 <style lang="scss" scoped>
-    .home-wrapper{ max-width: 960px; margin: auto; }
+    .home-wrapper{ width: 100%; max-width: 800px; margin: auto; }
 </style>
 
 <script>
@@ -18,8 +18,11 @@
         data () {
             return {
                 list: null,
-                favorites: null
+                favorites: []
             }
+        },
+        methods: {
+            favoriteExists (param) { return this.favorites.find(p => p === param) }
         }
     }
 </script>
