@@ -15,7 +15,7 @@
                 </v-text-field>
             </v-card-title>
 
-            <v-data-table
+            <v-data-table style='min-height:35vh'
                 :headers='dataTable.headers'
                 :items='dataTable.getItems()'
                 :page.sync="pagination.page"
@@ -27,7 +27,7 @@
                 dense>
 
                 <template v-slot:body="{ items }">
-                    <tbody>
+                    <tbody v-if='items.length'>
                         <tr v-for='item, key in items' :key='key'>
                             <td style='cursor:pointer' @click='favorite(item)'>
                                 <v-icon class='mr-4' color="orange darken-2">
@@ -36,7 +36,11 @@
                                 <span>{{ item.breed }}</span>
                             </td>
                         </tr>
+                        <tr></tr>
                     </tbody>
+                    <div v-else>
+                        <p class='text-center my-8'>No records found.</p>
+                    </div>
                 </template>
 
             </v-data-table>
