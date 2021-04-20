@@ -41,11 +41,7 @@
 
             </v-data-table>
 
-            <v-pagination
-                v-model="pagination.page"
-                :length="pagination.count"
-                circle>
-            </v-pagination>
+            <v-pagination v-model="pagination.page" :length="pagination.count" circle></v-pagination>
 
         </v-card>
 
@@ -53,12 +49,8 @@
 </template>
 
 <script>
-    import configs from '@/configs'
     export default {
         name: 'List',
-        created () {
-            this.getList()
-        },
         data () {
 
             let parent = this.$parent
@@ -80,36 +72,6 @@
             }
         },
         methods: {
-            getList () {
-                fetch(`${ configs.apiBaseUrl }/breeds/list/all`)
-                    .then(response => response.json())
-                    .then(data => {
-                        if (data.status === 'success') {
-                            this.$parent.list = data.message
-
-                            Object.keys(this.$parent.list).forEach(key => {
-
-                                if (this.$parent.list[key].length) {
-                                    this.$parent.list[key].forEach(subBreed => {
-                                        this.dataTable.items.push({
-                                            breed: `${ subBreed[0].toUpperCase() }${ subBreed.substr(1) } ${ key[0].toUpperCase() }${ key.substr(1) }`,
-                                            param: `${ key }/${ subBreed }`
-                                        })
-
-                                    })
-                                } else {
-                                    this.dataTable.items.push({
-                                        breed: `${ key[0].toUpperCase() }${ key.substr(1) }`,
-                                        param: key
-                                    })
-                                }
-                                this.dataTable.items.sort((a, b) => a.breed > b.breed ? 1 : -1)
-
-                            })
-
-                        }
-                    })
-            },
             favorite (item) {
                 if (this.$parent.favoriteExists(item.param)) {
                     this.$parent.favorites = this.$parent.favorites.filter(p => p !== item.param)
