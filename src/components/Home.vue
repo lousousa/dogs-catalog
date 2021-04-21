@@ -32,7 +32,9 @@
             <div class='text-right mt-4 pa-2'>
                 <ToggleFavorites/>
             </div>
+            
         </div>
+
     </div>
 </template>
 

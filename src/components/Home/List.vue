@@ -34,7 +34,10 @@
 
             </v-data-table>
 
-            <v-pagination v-model="pagination.page" :length="pagination.count" circle></v-pagination>
+            <v-pagination v-model="pagination.page"
+                :length="pagination.count"
+                circle>
+            </v-pagination>
 
         </v-card>
 
