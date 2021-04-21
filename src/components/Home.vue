@@ -102,7 +102,7 @@
                                 this.$refs.selectBreed.items.push({ text: `${ key[0].toUpperCase() }${ key.substr(1) }`, value: key })
 
                             })
-                            this.$refs.list.dataTable.items.sort((a, b) => a.breed > b.breed ? 1 : -1)
+                            this.$refs.list.dataTable.items.sort((a, b) => a.subBreed > b.subBreed ? 1 : -1)
 
                         }
                     })
