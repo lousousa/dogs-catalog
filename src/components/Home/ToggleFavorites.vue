@@ -2,7 +2,6 @@
     <v-btn color="primary"
         :disabled='! $parent.favorites.length'
         elevation="2"
-        block
         @click='viewFavorites()'>
             {{ $parent.viewFavorites ? 'View all' : 'View favorites' }}
     </v-btn>

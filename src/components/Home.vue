@@ -1,18 +1,56 @@
 <template>
-    <div class='home-wrapper'>
-        <List ref='list'/>
-        <v-container class='mt-2'>
-            <v-row align='center'>
-                <v-col cols='6'><SelectBreed ref='selectBreed'/></v-col>
-                <v-col cols='3'></v-col>
-                <v-col cols='3'><ToggleFavorites/></v-col>
-            </v-row>
-        </v-container>
+    <div id='homeWrapper'>
+        <div class='text-center py-16' v-show='! list'>
+            <v-progress-circular indeterminate color="primary"></v-progress-circular>
+        </div>
+        <div v-show='list'>
+                
+            <v-container class='mb-4'>
+                <v-row align='end'>
+                    <v-col cols='12' md='4' class='text-center text-md-left'>
+                        <h2>
+                            <img class='img-logo' src='@/assets/img/logo.png'/>
+                            <span>Dogs Catalog</span>
+                        </h2>
+                    </v-col>
+                    <v-col cols='12' md='4'>
+                        <SelectBreed ref='selectBreed'/>
+                    </v-col>
+                    <v-col cols='12' md='4'>
+                        <v-text-field v-if='$refs.list'
+                            v-model="$refs.list.search"
+                            append-icon="mdi-magnify"
+                            label="Search"
+                            single-line
+                            hide-details>
+                        </v-text-field>
+                    </v-col>
+                </v-row>
+            </v-container>
+
+            <List ref='list'/>
+            <div class='text-right mt-4 pa-2'>
+                <ToggleFavorites/>
+            </div>
+        </div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-    .home-wrapper{ width: 100%; max-width: 800px; margin: 4rem auto; }
+    #homeWrapper {
+        width: 100%;
+        max-width: 800px;
+        margin: .6em auto;
+        @media all and (min-width: 640px) {
+            margin-top: 2rem;
+        }
+        .img-logo {
+            width: 1.5em;
+            height: 1.5em;
+            vertical-align: bottom;
+            margin-right: .6em;
+        }
+    }
 </style>
 
 <script>

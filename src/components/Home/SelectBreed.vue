@@ -1,6 +1,7 @@
 <template>
     <v-select v-model='selected'
         :items='items'
+        hide-details
         label="Filter by breed"
         @input="$parent.filterByBreed = selected">
     </v-select>

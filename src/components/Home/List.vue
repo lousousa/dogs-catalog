@@ -1,25 +1,14 @@
 <template>
-    <div>
+    <div class='pa-2'>
         
         <v-card v-if='$parent.list'>
 
-            <v-card-title>
-                Dogs Catalog
-                <v-spacer></v-spacer>
-                <v-text-field
-                    v-model="search"
-                    append-icon="mdi-magnify"
-                    label="Search"
-                    single-line
-                    hide-details>
-                </v-text-field>
-            </v-card-title>
-
-            <v-data-table style='min-height:35.5vh'
+            <v-data-table id='mainDatatable'
                 :headers='dataTable.headers'
                 :items='dataTable.getItems()'
                 :page.sync="pagination.page"
                 :items-per-page='pagination.itemsPerPage'
+                hide-default-header
                 hide-default-footer
                 :search="search"
                 @page-count="pagination.count = $event"
@@ -51,6 +40,15 @@
 
     </div>
 </template>
+
+<style lang="scss" scoped>
+    #mainDatatable {
+        min-height: 35.5vh;
+        @media all and (max-width:640px) {
+            min-height: 40.5vh
+        }
+    }
+</style>
 
 <script>
     export default {
