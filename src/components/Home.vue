@@ -64,21 +64,14 @@
         mounted () {
             this.getList()
         },
-        watch: {
-            favorites (list) {
-                if (! list.length) this.viewFavorites = false
-            }
-        },
         data () {
             return {
                 list: null,
-                favorites: [],
                 viewFavorites: false,
                 filterByBreed: null
             }
         },
         methods: {
-            favoriteExists (param) { return this.favorites.find(p => p === param) },
             getList () {
                 fetch(`${ configs.apiBaseUrl }/breeds/list/all`)
                     .then(response => response.json())

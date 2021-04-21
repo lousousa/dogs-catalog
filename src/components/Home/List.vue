@@ -20,7 +20,7 @@
                         <tr v-for='item, key in items' :key='key'>
                             <td style='cursor:pointer' @click='favorite(item)'>
                                 <v-icon class='mr-4' color="orange darken-2">
-                                    {{ $parent.favoriteExists(item.param) ? 'mdi-star' : 'mdi-star-outline' }}
+                                    {{ favorites.find(p => p === item.param) ? 'mdi-star' : 'mdi-star-outline' }}
                                 </v-icon>
                                 <span>{{ item.subBreed }}</span>
                             </td>
@@ -53,9 +53,15 @@
 <script>
     export default {
         name: 'List',
+        watch: {
+            favorites (list) {
+                if (! list.length) this.$parent.viewFavorites = false
+            }
+        },
         data () {
 
             let parent = this.$parent
+            let store = this.$store
 
             return {
                 search: '',
@@ -64,7 +70,7 @@
                     items: [],
                     getItems () {
                         let result = this.items
-                        if (parent.viewFavorites) result = result.filter(i => parent.favorites.includes(i.param))
+                        if (parent.viewFavorites) result = result.filter(i => store.state.favorites.includes(i.param))
                         if (parent.filterByBreed) result = result.filter(i => i.breed === parent.filterByBreed)
                         return result
                     }
@@ -73,16 +79,18 @@
                     page: 1,
                     count: 0,
                     itemsPerPage: 10
-                }
+                },
+                favorites: store.state.favorites
             }
         },
         methods: {
             favorite (item) {
-                if (this.$parent.favoriteExists(item.param)) {
-                    this.$parent.favorites = this.$parent.favorites.filter(p => p !== item.param)
+                if (this.favorites.find(p => p === item.param)) {
+                    this.$store.commit('removeFavorite', item.param)
                 } else {
-                    this.$parent.favorites.push(item.param)
+                    this.$store.commit('addFavorite', item.param)
                 }
+                this.favorites = this.$store.state.favorites
             }
         }
     }

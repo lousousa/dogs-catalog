@@ -1,6 +1,6 @@
 <template>
     <v-btn color="primary"
-        :disabled='! $parent.favorites.length'
+        :disabled='! $store.state.favorites.length'
         elevation="2"
         @click='viewFavorites()'>
             {{ $parent.viewFavorites ? 'View all' : 'View favorites' }}
