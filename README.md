@@ -1,4 +1,16 @@
-# dogs-catalog
+# Dogs Catalog
+
+## Description
+Project is a simple dynamic list created using **Vue 2** and **Vuetify 2**.
+
+## Features:
++ Data Table with pagination
++ Filtering and searching
++ Favoriting items
++ Data persisting
++ Componentization
++ API Fetching
++ Responsivity
 
 ## Project setup
 ```
