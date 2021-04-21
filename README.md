@@ -4,7 +4,7 @@
 This project is a simple dynamic list created using **Vue 2** and **Vuetify 2**.
 
 ## Features:
-+ Data Table with pagination
++ Data table with pagination
 + Filtering and searching
 + Favoriting items
 + Data persisting (with *Vuex*)
