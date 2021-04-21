@@ -1,6 +1,6 @@
 module.exports = {
     devServer: { open: true },
-    publicPath: '/',
+    publicPath: '',
     transpileDependencies: [
       'vuetify'
     ]
